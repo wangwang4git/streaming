@@ -61,6 +61,14 @@ SET B5=1200k
 SET B6=1800k
 SET B7=2500k
 SET B8=4500k
+SET BB1=110000
+SET BB2=200000
+SET BB3=400000
+SET BB4=600000
+SET BB5=1200000
+SET BB6=1800000
+SET BB7=2500000
+SET BB8=4500000
 ::视频横纵比
 SET ASPECT=16:9
 ::调用外部转码程序ffmpeg
@@ -100,6 +108,9 @@ SET ASPECT=16:9
 :: -async 2
 :: 命令结尾				输出文件
 
+::归并.m3u8文件，用于支持可变码率
+ECHO #EXTM3U>%rootpathname%\%filename%.m3u8
+
 SET /A i=1
 :loopbody
 ::!%I%!多次引用变量
@@ -133,6 +144,11 @@ DEL avformat-52.dll
 CD %currentpath%
 ::删除转码结果文件
 DEL %outputfile%
+
+::归并.m3u8文件，用于支持可变码率
+ECHO #EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=!BB%i%!>>%rootpathname%\%filename%.m3u8
+ECHO %filename%_%bitrate%\%filename%_%bitrate%.m3u8>>%rootpathname%\%filename%.m3u8
+
 ::循环变量自增
 SET /A i+=1
 ::循环次数8次
