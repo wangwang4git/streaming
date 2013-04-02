@@ -147,7 +147,7 @@ DEL %outputfile%
 
 ::归并.m3u8文件，用于支持可变码率
 ECHO #EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=!BB%i%!>>%rootpathname%\%filename%.m3u8
-ECHO %filename%_%bitrate%\%filename%_%bitrate%.m3u8>>%rootpathname%\%filename%.m3u8
+ECHO %filename%_%bitrate%/%filename%_%bitrate%.m3u8>>%rootpathname%\%filename%.m3u8
 
 ::循环变量自增
 SET /A i+=1
