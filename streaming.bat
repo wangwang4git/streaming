@@ -10,6 +10,7 @@
 
 ::脚本输入参数说明：
 ::参数1：待转码、切分的视频文件名，支持全路径与相对路径
+::		注意文件名不包含中文、空格
 ::		全路径举例：E:\研究生毕业设计-基于iOS平台的流媒体播放系统的研究与实现\开发\test.avi
 ::		注意全路径不能包含空格
 ::		相对路径举例：.\test.avi、..\dir\test.avi
@@ -108,6 +109,9 @@ SET ASPECT=16:9
 :: -async 2
 :: 命令结尾				输出文件
 
+::视频文件截图
+ffmpeg -ss 00:00:05 -i "%1" -s %S4% %rootpathname%\%filename%.jpg -r 1 -vframes 1 -an -vcodec mjpeg
+
 ::归并.m3u8文件，用于支持可变码率
 ECHO #EXTM3U>%rootpathname%\%filename%.m3u8
 
@@ -152,7 +156,7 @@ ECHO %filename%_%bitrate%/%filename%_%bitrate%.m3u8>>%rootpathname%\%filename%.m
 ::循环变量自增
 SET /A i+=1
 ::循环次数8次
-IF NOT %i%==9 GOTO :loopbody
+IF NOT %i%==2 GOTO :loopbody
 
 ::退出
 ::完成提示输出
