@@ -111,6 +111,8 @@ SET ASPECT=16:9
 
 ::视频文件截图
 ffmpeg -ss 00:00:05 -i "%1" -s %S4% %rootpathname%\%filename%.jpg -r 1 -vframes 1 -an -vcodec mjpeg
+::视频文件信息
+ffmpeg -i "%1" 2>%rootpathname%\%filename%_info.txt
 
 ::归并.m3u8文件，用于支持可变码率
 ECHO #EXTM3U>%rootpathname%\%filename%.m3u8
@@ -156,7 +158,7 @@ ECHO %filename%_%bitrate%/%filename%_%bitrate%.m3u8>>%rootpathname%\%filename%.m
 ::循环变量自增
 SET /A i+=1
 ::循环次数8次
-IF NOT %i%==2 GOTO :loopbody
+IF NOT %i%==9 GOTO :loopbody
 
 ::退出
 ::完成提示输出
